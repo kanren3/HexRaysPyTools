@@ -3,6 +3,7 @@ import itertools
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import idaapi
+import ida_typeinf
 import idc
 
 from . import common
@@ -657,7 +658,7 @@ class TemporaryStructureModel(QtCore.QAbstractTableModel):
             return
         min_size = enabled_items[-1].offset + enabled_items[-1].size - base
         tinfo = idaapi.tinfo_t()
-        for ordinal in range(1, idaapi.get_ordinal_qty(idaapi.cvar.idati)):
+        for ordinal in range(1, ida_typeinf.get_ordinal_limit(idaapi.cvar.idati)):
             tinfo.get_numbered_type(idaapi.cvar.idati, ordinal)
             if tinfo.is_udt() and tinfo.get_size() >= min_size:
                 is_found = False

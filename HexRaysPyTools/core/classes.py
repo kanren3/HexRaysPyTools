@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui
 
 import idaapi
+import ida_typeinf
 
 import HexRaysPyTools.forms
 from . import helper
@@ -450,7 +451,7 @@ class TreeModel(QtCore.QAbstractItemModel):
         all_virtual_tables.clear()
 
         classes = []
-        for ordinal in range(1, idaapi.get_ordinal_qty(idaapi.cvar.idati)):
+        for ordinal in range(1, ida_typeinf.get_ordinal_limit(idaapi.cvar.idati)):
             result = Class.create_class(ordinal)
             if result:
                 classes.append(result)
